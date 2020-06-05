@@ -1,12 +1,11 @@
-import cv2 as cv
-import sys, os
-#import tkinter as tk
-#from tkinter import filedialog
-from PyQt5.Qt import *
-from PyQt5.QtWidgets import *
+# RUN PARAMETERS: Python 3.6.8 python.org (no brew/conda, etc)
+# APP FREEZE: pyinstaller 3.6
+import cv2 as cv #opencv-contrib-python 3.4.9.33
+import sys, os 
+from PyQt5.Qt import * #PyQt5 5.13.0
 from landsatCore import getTrueColorLandsat, colorCorrect, convertToFinal
 
-# GUI: LANDSAT TRUE COLOR IMAGE CONVERTER
+# GUI: LANDSAT 8 TRUE COLOR IMAGE CONVERTER
 # V1.0 June 1 2020
 # CREATED BY DEREK PICKELL
 
@@ -32,7 +31,7 @@ def run(folder):
         
     except:
         print("failure to launch")
-        #text2.set("failure to launch...")
+        button2.setText("failure to launch...")
 
 def restart():
     """
@@ -49,15 +48,6 @@ def fileDialog():
         folder[0] = folderPath
         button1.setText(folderPath)
 
-    # text2.set("Press to Start")
-    # if getattr(sys, 'frozen', False): # check if running bundle or normal python
-    #     application_path = os.path.dirname(sys.argv[0])
-    # else: # normal python
-    #     application_path = os.path.dirname(os.path.abspath(__file__))
-    # folderPath = filedialog.askdirectory(initialdir =  str(application_path), title = "Select Folder")
-    # if folderPath:
-    #     text.set(folderPath)
-    #     folder[0] = folderPath
 
 app = QApplication(sys.argv)
 window = QWidget()
@@ -100,51 +90,6 @@ vbox.addWidget(button3)
 vbox.addStretch()
 vbox.addWidget(label3)
 
-# l1.setOpenExternalLinks(True)
-# l4.linkActivated.connect(clicked)
-# l2.linkHovered.connect(hovered)
-# l1.setTextInteractionFlags(Qt.TextSelectableByMouse)
 window.setLayout(vbox)
-   
 window.show()
 sys.exit(app.exec_())
-
-# window = tk.Tk()
-# window.title("Landsat Image Processing")
-# window.geometry("500x500")
-# #window.resizable(0, 0)
-# greeting = tk.Label(text="Created by Derek Pickell\nClick to search for folder that contains \
-# proper images.\n Required: Bands 4, 3, 2, 8 and metadata.txt. \nOutput is a pansharpened RGB \
-# true color image \nstored in the original folder.")
-# greeting.grid(column = 0, row = 1, padx = 5, pady = 5)
-
-# text = tk.StringVar()
-# button1 = tk.Button(textvar = text, command =  lambda: fileDialog(), bg = "blue")
-# text.set("Search for Landsat image folder")
-# button1.grid(column = 0, row = 2, padx = 20, pady = 20)
-
-# text2 = tk.StringVar()
-# button2 = tk.Button(textvar = text2, command = lambda: run(folder))
-# text2.set("Press to start")
-# button2.grid(column = 0, row = 3, padx = 20, pady = 20)
-
-# text3 = tk.StringVar()
-# label = tk.Label(textvar =text3)
-# text3.set("Depending on datasize, processing can take several minutes \nwith spinning wheel of death. \nGo do something else in meantime.")
-# label.grid(column = 0, row = 4, padx = 20, pady = 20)
-
-# button3 = tk.Button(text = "Restart", command = lambda: restart())
-# button3.grid(column = 0, row = 5, padx = 20, pady = 20)
-
-# label = tk.Label(text = "Created 2020. Distribute as you please, with credit to www.derekpickell.com")
-# label.grid(column = 0, row = 6, pady = 20)
-
-# window.grid_columnconfigure(0,weight=1)
-# window.grid_rowconfigure(1,weight=1)
-# window.grid_rowconfigure(2,weight=1)
-# window.grid_rowconfigure(3,weight=1)
-# window.grid_rowconfigure(4,weight=1)
-# window.grid_rowconfigure(5,weight=1)
-# window.grid_rowconfigure(6,weight=1)
-
-# window.mainloop() 

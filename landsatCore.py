@@ -3,7 +3,7 @@ import glob
 import sys, os
 import numpy as np
 
-# CORE LIBRARY: LANDSAT TRUE COLOR IMAGE CONVERTER 
+# CORE LIBRARY: LANDSAT 8 TRUE COLOR IMAGE CONVERTER 
 # V1.0 June 1 2020
 # CREATED BY DEREK PICKELL
 
@@ -47,8 +47,7 @@ def getTrueColorLandsat(folder):
     mergedImage = cv.cvtColor(labColorMerge, cv.COLOR_Lab2BGR) # convert back to RGB  
     print("LAB max pixel intensity: ",np.amax(labColor)) # max pixel intensities should be about equal
     print("Sharpened LAB max pixel intensity:", np.amax(labColorMerge))
-    # cv.imshow("merged image 1", mergedImage)
-    # cv.waitKey(0)
+
     return mergedImage
 
 
@@ -86,39 +85,31 @@ def convertToFinal(outputImage, folder):
     Input: color corrected LAB image
     Output: RBG image
     """
-    #if getattr(sys, 'frozen', False): # check if running bundle or normal python
-    #    application_path = os.path.dirname(sys.argv[0])
-    #else: # normal python
-    #application_path = os.path.dirname(os.path.abspath(__file__))
 
     folder = str(folder[0])
-    pathDate = os.path.join(folder, "*.TIF") 
-    #pathDate = os.path.join(application_path, "*.txt")
+    pathDate = os.path.join(folder, "*.txt") 
     dateTitle = glob.glob(pathDate)
     date = str(dateTitle[0]).split("_")
-    #dirname = os.path.dirname(os.path.abspath(__file__))
     title = date[0] + "_" + date[1] + "_" + date[2] + "_" + date[3] + "_" + 'OUTPUT.TIF' 
     path = os.path.join(folder, title) 
-    print(path) 
     cv.imwrite(path, outputImage) 
 
 if __name__=="__main__":
     application_path = os.path.dirname(os.path.abspath(__file__))
     folder = [application_path]
-    #try:
-    print("merging images...")
-    print(application_path)
-    mergedImage = getTrueColorLandsat(folder)
-    #cv.imshow("mergedImage", margedImage)
-    print("color correcting...")
-    B, G, R = cv.split(mergedImage)
-    Bnew = colorCorrect(B)
-    Gnew = colorCorrect(G)
-    Rnew = colorCorrect(R)
-    colorCorrected = cv.merge((Bnew, Gnew, Rnew))
-    print("saving image...")
-    convertToFinal(colorCorrected, folder)
-    print("processing complete")
+    try:
+        print("merging images...")
+        print(application_path)
+        mergedImage = getTrueColorLandsat(folder)
+        print("color correcting...")
+        B, G, R = cv.split(mergedImage)
+        Bnew = colorCorrect(B)
+        Gnew = colorCorrect(G)
+        Rnew = colorCorrect(R)
+        colorCorrected = cv.merge((Bnew, Gnew, Rnew))
+        print("saving image...")
+        convertToFinal(colorCorrected, folder)
+        print("processing complete")
         
-    #except:
-        #print("failure to launch")
+    except:
+        print("failure to launch")
