@@ -1,0 +1,4 @@
+
+*.pkg
+dist/getTrueColorLandsat1_2
+dist/getTrueColorLandsat1_2.app/Contents/MacOS/getTrueColorLandsat1_2

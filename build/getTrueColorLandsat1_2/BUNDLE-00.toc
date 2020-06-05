@@ -1,0 +1,3 @@
+([('getTrueColorLandsat1_2',
+   '/Users/derekpickell/Documents/GitHub/LandsatProcessing/dist/getTrueColorLandsat1_2',
+   'EXECUTABLE')],)

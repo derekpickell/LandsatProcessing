@@ -1,6 +1,6 @@
 import cv2 as cv
 import sys, os
-import tkinter as tk
+#import tkinter as tk
 #from tkinter import filedialog
 from PyQt5.Qt import *
 from PyQt5.QtWidgets import *

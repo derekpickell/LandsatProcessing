@@ -47,7 +47,8 @@ def getTrueColorLandsat(folder):
     mergedImage = cv.cvtColor(labColorMerge, cv.COLOR_Lab2BGR) # convert back to RGB  
     print("LAB max pixel intensity: ",np.amax(labColor)) # max pixel intensities should be about equal
     print("Sharpened LAB max pixel intensity:", np.amax(labColorMerge))
-    cv.imshow("merged image 1", mergedImage)
+    # cv.imshow("merged image 1", mergedImage)
+    # cv.waitKey(0)
     return mergedImage
 
 
@@ -98,30 +99,26 @@ def convertToFinal(outputImage, folder):
     #dirname = os.path.dirname(os.path.abspath(__file__))
     title = date[0] + "_" + date[1] + "_" + date[2] + "_" + date[3] + "_" + 'OUTPUT.TIF' 
     path = os.path.join(folder, title) 
-    print(path)
-    cv.imshow("mergedImage", margedImage)   
+    print(path) 
     cv.imwrite(path, outputImage) 
-    cv.waitKey(0)
 
 if __name__=="__main__":
     application_path = os.path.dirname(os.path.abspath(__file__))
     folder = [application_path]
-    try:
-        print("merging images...")
-        print(application_path)
-        mergedImage = getTrueColorLandsat(folder)
-        cv.imshow("mergedImage", margedImage)
-        print("color correcting...")
-        B, G, R = cv.split(mergedImage)
-        Bnew = colorCorrect(B)
-        Gnew = colorCorrect(G)
-        Rnew = colorCorrect(R)
-        colorCorrected = cv.merge((Bnew, Gnew, Rnew))
-        cv.imshow("mergedImage", colorCorrected)
-        print("saving image...")
-        convertToFinal(colorCorrected, folder)
-        print("processing complete")
-        cv.waitKey(0)
+    #try:
+    print("merging images...")
+    print(application_path)
+    mergedImage = getTrueColorLandsat(folder)
+    #cv.imshow("mergedImage", margedImage)
+    print("color correcting...")
+    B, G, R = cv.split(mergedImage)
+    Bnew = colorCorrect(B)
+    Gnew = colorCorrect(G)
+    Rnew = colorCorrect(R)
+    colorCorrected = cv.merge((Bnew, Gnew, Rnew))
+    print("saving image...")
+    convertToFinal(colorCorrected, folder)
+    print("processing complete")
         
-    except:
-        print("failure to launch")
+    #except:
+        #print("failure to launch")
